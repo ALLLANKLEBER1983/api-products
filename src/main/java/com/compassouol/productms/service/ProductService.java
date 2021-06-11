@@ -23,7 +23,7 @@ public class ProductService {
 	
 	
 	@Transactional
-	public Product salvar(Product product) {
+	public Product save(Product product) {
 		
 			return productRepository.save(product);
 			
@@ -31,7 +31,7 @@ public class ProductService {
 	}
 	
 	@Transactional
-	public void excluir(Long productId) {
+	public void delete(Long productId) {
 		productRepository.deleteById(productId);
 	}
 }

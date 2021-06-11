@@ -34,23 +34,23 @@ public class ProductController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Product adicionar(@Valid @RequestBody Product product) {
-		return productService.salvar(product);
+	public Product toAdd(@Valid @RequestBody Product product) {
+		return productService.save(product);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Product> atualizar(@Valid @PathVariable Long id,
+	public ResponseEntity<Product> update(@Valid @PathVariable Long id,
 			@RequestBody Product product){
 		if(!productRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
 		product.setId(id);
-		product = productService.salvar(product);
+		product = productService.save(product);
 		return ResponseEntity.ok(product);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Product> buscar(@PathVariable Long id){
+	public ResponseEntity<Product> search(@PathVariable Long id){
 		Optional<Product> product = productRepository.findById(id);
 		if(product.isPresent()) {
 			return ResponseEntity.ok(product.get());
@@ -59,7 +59,7 @@ public class ProductController {
 	}
 	
 	@GetMapping
-	public List<Product> listar(){
+	public List<Product> list(){
 		return productRepository.findAll();
 	}
 	
@@ -84,11 +84,11 @@ public class ProductController {
 	  }
 	  
 	  @DeleteMapping("/{productId}")
-	  public ResponseEntity<Void> remover(@PathVariable Long productId){
+	  public ResponseEntity<Void> toRemove(@PathVariable Long productId){
 		  if(!productRepository.existsById(productId)) {
 			 return ResponseEntity.notFound().build();
 		  }
-		   productService.excluir(productId);
+		   productService.delete(productId);
 		   return ResponseEntity.notFound().build();
 	  }
 	  
